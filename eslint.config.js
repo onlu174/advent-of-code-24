@@ -43,7 +43,7 @@ module.exports = tseslint.config(
     rules: {},
   },
   {
-    files: ["*.html"],
+    files: ["**/*.html"],
     extends: [
       eslintPluginPrettierRecommended,
     ],
