@@ -12,19 +12,13 @@ describe('Day1PuzzleSolution', () => {
       expect(() => solveDay1Puzzle('')).toThrowError();
     });
 
-    it('should throw error if any line has unexpected length', () => {
-      const input = '3   4\n' + '4  3\n' + '2   5\n' + '1   3\n' + '3   9\n' + '3   3';
-
-      expect(() => solveDay1Puzzle(input)).toThrowError();
-    });
-
     it('should throw error if any line has number missing', () => {
       const input = '3   4\n' + '4    \n' + '2   5\n' + '1   3\n' + '3   9\n' + '3   3';
 
       expect(() => solveDay1Puzzle(input)).toThrowError();
     });
 
-    it('should throw error if any line has character being Nan', () => {
+    it('should throw error if any line has character being NaN', () => {
       const input = '3   4\n' + '4   x\n' + '2   5\n' + '1   3\n' + '3   9\n' + '3   3';
 
       expect(() => solveDay1Puzzle(input)).toThrowError();

@@ -35,28 +35,23 @@ function mapDay1PuzzleInput(input: string): Day1PuzzleInput {
   const rightList: number[] = [];
 
   input.split('\n').forEach((line: string, index: number) => {
-    if (line.length !== 5) {
-      throw new Error(
-        `Error at Day1Puzzle input at line ${index}: line has invalid length. Expected 5, but got ${line.length}.`,
-      );
+    if (line === '') return;
+
+    const [leftListNumberText, rightListNumberText] = line.split('   ');
+
+    if (leftListNumberText === ' ' || rightListNumberText === ' ') {
+      throw new Error(`Error at Day1Puzzle input at line ${index}: number for one of the lists is missing.`);
     }
 
-    const leftListChar = line.charAt(0);
-    const rightListChar = line.charAt(4);
-
-    if (leftListChar === ' ' || rightListChar === ' ') {
-      throw new Error(`Error at Day1Puzzle input at line ${index}: character for one of the lists is missing.`);
-    }
-
-    const leftListNumber = Number(leftListChar);
-    const rightListNumber = Number(rightListChar);
+    const leftListNumber = Number(leftListNumberText);
+    const rightListNumber = Number(rightListNumberText);
 
     if (isNaN(leftListNumber) || isNaN(rightListNumber)) {
-      throw new Error(`Error at Day1Puzzle input at line ${index}: character for one of the lists is NaN.`);
+      throw new Error(`Error at Day1Puzzle input at line ${index}: number for one of the lists is NaN.`);
     }
 
-    leftList.push(Number(leftListChar));
-    rightList.push(Number(rightListChar));
+    leftList.push(Number(leftListNumberText));
+    rightList.push(Number(rightListNumberText));
   });
 
   return { leftList, rightList };
