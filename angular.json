@@ -8,6 +8,9 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "none"
+        },
+        "@schematics/angular:service": {
+          "flat": false
         }
       },
       "root": "",
