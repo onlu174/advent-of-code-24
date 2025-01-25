@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormsModule, Validators } from '@angular/forms';
-import { Day1PuzzleSolverService } from '../../services/day-1-puzzle-solver/day-1-puzzle-solver.service';
+import { PuzzleSolverService } from '../../model/puzzle-solver';
 
 @Component({
   selector: 'app-puzzle',
@@ -8,7 +8,7 @@ import { Day1PuzzleSolverService } from '../../services/day-1-puzzle-solver/day-
   templateUrl: './puzzle.component.html',
 })
 export class PuzzleComponent {
-  private readonly puzzleSolverService = inject(Day1PuzzleSolverService);
+  private readonly puzzleSolverService = inject(PuzzleSolverService);
 
   private readonly puzzleInputControl = new FormControl<File | null>(null, [Validators.required]);
 
