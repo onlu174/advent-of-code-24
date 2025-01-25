@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PuzzleSolverService } from '../../model/puzzle-solver';
 
 interface Day1PuzzleInput {
   leftList: number[];
@@ -8,8 +9,8 @@ interface Day1PuzzleInput {
 @Injectable({
   providedIn: 'root',
 })
-export class Day1PuzzleSolverService {
-  solveDay1Puzzle(input: string): number {
+export class Day1PuzzleSolverService implements PuzzleSolverService {
+  solve(input: string): number {
     const { leftList, rightList }: Day1PuzzleInput = this.mapDay1PuzzleInput(input);
 
     leftList.sort();
