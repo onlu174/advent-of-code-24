@@ -1,8 +1,1 @@
-<h1>Day 1 Puzzle</h1>
-<form (ngSubmit)="onFormSubmit()">
-  <label for="puzzleInput"> Puzzle input </label>
-  <input required id="puzzleInput" type="file" accept="text/plain" (change)="onFileInputChange($event)" />
-
-  <button type="submit">Solve</button>
-</form>
-<p>Solution: {{ puzzleSolution() }}</p>
+<app-puzzle />
