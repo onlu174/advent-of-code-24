@@ -1,3 +1,6 @@
-export interface PuzzleSolver {
-  solve(puzzleInput: string): number;
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export abstract class PuzzleSolverService {
+  abstract solve(puzzleInput: string): number;
 }
