@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormsModule, Validators } from '@angular/forms';
-import { solveDay1Puzzle } from '../../puzzle-solutions/day-1-puzzle-solution/day-1-puzzle-solution';
+import { Day1PuzzleSolverService } from '../../services/day-1-puzzle-solver/day-1-puzzle-solver.service';
 
 @Component({
   selector: 'app-puzzle',
@@ -8,6 +8,8 @@ import { solveDay1Puzzle } from '../../puzzle-solutions/day-1-puzzle-solution/da
   templateUrl: './puzzle.component.html',
 })
 export class PuzzleComponent {
+  private readonly puzzleSolverService = inject(Day1PuzzleSolverService);
+
   private readonly puzzleInputControl = new FormControl<File | null>(null, [Validators.required]);
 
   puzzleSolution = signal<number | null>(null);
@@ -41,7 +43,7 @@ export class PuzzleComponent {
 
     fileReader.onload = () => {
       const puzzleInput = fileReader.result as string;
-      const puzzleSolution = solveDay1Puzzle(puzzleInput);
+      const puzzleSolution = this.puzzleSolverService.solveDay1Puzzle(puzzleInput);
 
       this.puzzleSolution.set(puzzleSolution);
     };
