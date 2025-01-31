@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PuzzleSolverService } from '../../model/puzzle-solver';
+import { PuzzleSolverService } from '../../model/puzzle-solver.service';
 
 interface Day1PuzzleInput {
   leftList: number[];

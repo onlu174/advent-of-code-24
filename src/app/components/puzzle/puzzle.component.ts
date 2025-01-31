@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormsModule, Validators } from '@angular/forms';
-import { PuzzleSolverService } from '../../model/puzzle-solver';
+import { PuzzleSolverService } from '../../model/puzzle-solver.service';
 import { RouterLink } from '@angular/router';
 
 @Component({

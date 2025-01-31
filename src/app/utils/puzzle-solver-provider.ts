@@ -1,4 +1,4 @@
-import { PuzzleSolverService } from '../model/puzzle-solver';
+import { PuzzleSolverService } from '../model/puzzle-solver.service';
 import { Day1PuzzleSolverService } from '../services/day-1-puzzle-solver/day-1-puzzle-solver.service';
 import { Router } from '@angular/router';
 
