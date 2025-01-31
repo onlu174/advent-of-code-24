@@ -1,15 +1,18 @@
 import { PuzzleSolverService } from '../model/puzzle-solver.service';
-import { Day1PuzzleSolverService } from '../services/day-1-puzzle-solver/day-1-puzzle-solver.service';
 import { Router } from '@angular/router';
+import { CalendarService } from '../services/calendar/calendar.service';
 
-const puzzleSolverFactory = (router: Router) => {
-  console.log(router.routerState.snapshot.root.children[0].params['day']);
+const puzzleSolverFactory = (router: Router, calendarService: CalendarService): PuzzleSolverService => {
+  const dayParam = router.routerState.snapshot.root.children[0].params['day'];
+  const dayNumber = Number.parseInt(dayParam);
+  const dayIndex = dayNumber - 1;
+  const day = calendarService.calendar[dayIndex];
 
-  return Day1PuzzleSolverService;
+  return new day.puzzleSolver();
 };
 
 export const puzzleSolverProvider = {
   provide: PuzzleSolverService,
   useFactory: puzzleSolverFactory,
-  deps: [Router],
+  deps: [Router, CalendarService],
 };
