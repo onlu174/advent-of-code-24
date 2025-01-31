@@ -10,8 +10,8 @@ interface Day1PuzzleInput {
   providedIn: 'root',
 })
 export class Day1PuzzleSolverService implements PuzzleSolverService {
-  solve(input: string): number {
-    const { leftList, rightList }: Day1PuzzleInput = this.mapDay1PuzzleInput(input);
+  solvePartOne(puzzleInput: string): number {
+    const { leftList, rightList }: Day1PuzzleInput = this.mapDay1PuzzleInput(puzzleInput);
 
     leftList.sort();
     rightList.sort();
@@ -31,6 +31,10 @@ export class Day1PuzzleSolverService implements PuzzleSolverService {
     }
 
     return pairDistances.reduce((accumulator, currentValue) => accumulator + currentValue);
+  }
+
+  solvePartTwo(puzzleInput: string): number {
+    throw new Error('Method not implemented.');
   }
 
   private mapDay1PuzzleInput(input: string): Day1PuzzleInput {

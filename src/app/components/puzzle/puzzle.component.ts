@@ -44,7 +44,7 @@ export class PuzzleComponent {
 
     fileReader.onload = () => {
       const puzzleInput = fileReader.result as string;
-      const puzzleSolution = this.puzzleSolverService.solve(puzzleInput);
+      const puzzleSolution = this.puzzleSolverService.solvePartOne(puzzleInput);
 
       this.puzzleSolution.set(puzzleSolution);
     };
