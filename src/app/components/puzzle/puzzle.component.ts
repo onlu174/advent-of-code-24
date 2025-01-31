@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormsModule, Validators } from '@angular/forms';
 import { PuzzleSolverService } from '../../model/puzzle-solver';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-puzzle',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './puzzle.component.html',
 })
 export class PuzzleComponent {
