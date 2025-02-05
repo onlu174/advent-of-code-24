@@ -34,7 +34,18 @@ export class Day1PuzzleSolverService implements PuzzleSolverService {
   }
 
   solvePartTwo(puzzleInput: string): number {
-    throw new Error('Method not implemented.');
+    const { leftList, rightList }: Day1PuzzleInput = this.mapDay1PuzzleInput(puzzleInput);
+
+    const rightListOccurrenceMap = new Map<number, number>();
+    rightList.forEach((number) => {
+      const occurrences = rightListOccurrenceMap.get(number) ?? 0;
+      rightListOccurrenceMap.set(number, occurrences + 1);
+    });
+
+    return leftList.reduce(
+      (accumulator, currentValue) => accumulator + currentValue * (rightListOccurrenceMap.get(currentValue) ?? 0),
+      0,
+    );
   }
 
   private mapDay1PuzzleInput(input: string): Day1PuzzleInput {
