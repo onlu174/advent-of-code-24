@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { PuzzleComponent } from './components/puzzle/puzzle.component';
+import { PuzzleDayComponent } from './components/puzzle/puzzle-day.component';
 import { puzzleSolverProvider } from './utils/puzzle-solver-provider';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { Path } from './utils/path';
@@ -12,7 +12,7 @@ export const routes: Routes = [
   },
   {
     path: Path.puzzle,
-    component: PuzzleComponent,
+    component: PuzzleDayComponent,
     providers: [puzzleDayDataProvider, puzzleSolverProvider],
   },
   {

@@ -5,11 +5,11 @@ import { RouterLink } from '@angular/router';
 import { PUZZLE_DAY_DATA } from '../../model/puzzle-day-data';
 
 @Component({
-  selector: 'app-puzzle',
+  selector: 'app-puzzle-day',
   imports: [FormsModule, RouterLink],
-  templateUrl: './puzzle.component.html',
+  templateUrl: './puzzle-day.component.html',
 })
-export class PuzzleComponent {
+export class PuzzleDayComponent {
   readonly puzzleDayData = inject(PUZZLE_DAY_DATA);
   private readonly puzzleSolverService = inject(PuzzleSolverService);
 
