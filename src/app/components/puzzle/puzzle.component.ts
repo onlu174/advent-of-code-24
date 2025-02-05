@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormsModule, Validators } from '@angular/forms';
 import { PuzzleSolverService } from '../../model/puzzle-solver.service';
 import { RouterLink } from '@angular/router';
+import { PUZZLE_DAY_DATA } from '../../model/puzzle-day-data';
 
 @Component({
   selector: 'app-puzzle',
@@ -9,6 +10,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './puzzle.component.html',
 })
 export class PuzzleComponent {
+  readonly puzzleDayData = inject(PUZZLE_DAY_DATA);
   private readonly puzzleSolverService = inject(PuzzleSolverService);
 
   private readonly puzzleInputControl = new FormControl<File | null>(null, [Validators.required]);
