@@ -2,6 +2,11 @@ import { Component, input, signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PuzzleSolverService } from '../../model/puzzle-solver.service';
 
+export enum PuzzlePart {
+  One,
+  Two,
+}
+
 @Component({
   selector: 'app-puzzle-form',
   imports: [FormsModule, ReactiveFormsModule],
@@ -11,6 +16,7 @@ export class PuzzleFormComponent {
   private readonly puzzleInputControl = new FormControl<File | null>(null, [Validators.required]);
 
   puzzleSolver = input.required<PuzzleSolverService>();
+  puzzlePart = input.required<PuzzlePart>();
 
   puzzleSolution = signal<number | null>(null);
 
@@ -43,7 +49,15 @@ export class PuzzleFormComponent {
 
     fileReader.onload = () => {
       const puzzleInput = fileReader.result as string;
-      const puzzleSolution = this.puzzleSolver().solvePartOne(puzzleInput);
+      let puzzleSolution: number;
+
+      if (this.puzzlePart() === PuzzlePart.One) {
+        puzzleSolution = this.puzzleSolver().solvePartOne(puzzleInput);
+      } else if (this.puzzlePart() === PuzzlePart.Two) {
+        puzzleSolution = this.puzzleSolver().solvePartTwo(puzzleInput);
+      } else {
+        throw new Error('PuzzlePart solving not implemented');
+      }
 
       this.puzzleSolution.set(puzzleSolution);
     };

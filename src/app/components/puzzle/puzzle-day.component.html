@@ -1,3 +1,5 @@
 <h2>Day {{ puzzleDayData.number }} - {{ puzzleDayData.title }}</h2>
 <p><a routerLink="..">Go back to Calendar</a></p>
-<app-puzzle-form [puzzleSolver]="puzzleSolverService" />
+<app-puzzle-form [puzzleSolver]="puzzleSolverService" [puzzlePart]="PuzzlePart.One" />
+<h3>Part Two</h3>
+<app-puzzle-form [puzzleSolver]="puzzleSolverService" [puzzlePart]="PuzzlePart.Two" />
