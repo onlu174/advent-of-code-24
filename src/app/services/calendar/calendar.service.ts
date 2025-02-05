@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Day } from '../../model/day';
+import { PuzzleDay } from '../../model/puzzle-day';
 import { Day1PuzzleSolverService } from '../day-1-puzzle-solver/day-1-puzzle-solver.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalendarService {
-  readonly calendar: Day[] = [
+  readonly calendar: PuzzleDay[] = [
     {
       number: 1,
       title: 'Historian Hysteria',

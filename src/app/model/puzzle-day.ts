@@ -1,6 +1,6 @@
 import { PuzzleSolverService } from './puzzle-solver.service';
 
-export interface Day {
+export interface PuzzleDay {
   number: number;
   title: string;
   puzzleSolver: new () => PuzzleSolverService;
