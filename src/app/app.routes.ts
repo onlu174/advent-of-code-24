@@ -10,7 +10,7 @@ export const routes: Routes = [
     component: CalendarComponent,
   },
   {
-    path: `${Path.calendar}/:day`,
+    path: Path.puzzle,
     component: PuzzleComponent,
     providers: [puzzleSolverProvider],
   },
