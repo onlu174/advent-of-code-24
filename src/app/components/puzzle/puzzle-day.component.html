@@ -1,8 +1,3 @@
 <h2>Day {{ puzzleDayData.number }} - {{ puzzleDayData.title }}</h2>
 <p><a routerLink="..">Go back to Calendar</a></p>
-<form (ngSubmit)="onFormSubmit()">
-  <label for="puzzle-input"> Puzzle input </label>
-  <input required id="puzzle-input" type="file" accept="text/plain" (change)="onFileInputChange($event)" />
-  <button type="submit">Solve</button>
-</form>
-<p>Solution: {{ puzzleSolution() }}</p>
+<app-puzzle-form [puzzleSolver]="puzzleSolverService" />
