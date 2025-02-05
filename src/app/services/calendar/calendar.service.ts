@@ -13,4 +13,5 @@ export class CalendarService {
       puzzleSolver: Day1PuzzleSolverService,
     },
   ];
+  readonly maxSize: number = 24;
 }

@@ -1,7 +1,18 @@
 <h2>Calendar</h2>
 <nav>
   <ul>
-    <li><a [routerLink]="[1]">Day 1</a></li>
-    <li>...</li>
+    @for (day of calendar; track $index) {
+      <li>
+        <a [routerLink]="[day.number]">
+          Day {{ day.number }}
+          @if (day.title) {
+            - {{ day.title }}
+          }
+        </a>
+      </li>
+    }
+    @if (calendar.length < maxCalendarSize) {
+      <li>...</li>
+    }
   </ul>
 </nav>
