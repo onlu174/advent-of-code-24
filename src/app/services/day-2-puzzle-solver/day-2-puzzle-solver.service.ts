@@ -18,6 +18,18 @@ export class Day2PuzzleSolverService implements PuzzleSolverService {
     );
   }
 
+  solvePartTwo(puzzleInput: string): number {
+    throw new Error('Method not implemented.');
+  }
+
+  private mapPuzzleInput(puzzleInput: string): UnusualData {
+    const lines = puzzleInput.split('\n');
+
+    if (lines.at(-1) === '') lines.pop(); //removes empty last line
+
+    return lines.map((line) => line.split(' ').map((char) => Number(char)));
+  }
+
   private checkIfReportSafe(report: Report): boolean {
     enum LevelsDirection {
       Increasing,
@@ -42,17 +54,5 @@ export class Day2PuzzleSolverService implements PuzzleSolverService {
     }
 
     return true;
-  }
-
-  solvePartTwo(puzzleInput: string): number {
-    throw new Error('Method not implemented.');
-  }
-
-  private mapPuzzleInput(puzzleInput: string): UnusualData {
-    const lines = puzzleInput.split('\n');
-
-    if (lines.at(-1) === '') lines.pop(); //removes empty last line
-
-    return lines.map((line) => line.split(' ').map((char) => Number(char)));
   }
 }
