@@ -18,12 +18,10 @@ describe('PuzzleComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PuzzleDayComponent],
-      providers: [
-        provideRouter([]),
-        { provide: PUZZLE_DAY_DATA, useValue: puzzleDayDataMock },
-        { provide: PuzzleSolverService, useValue: puzzleSolverServiceMock },
-      ],
+      providers: [provideRouter([])],
     }).compileComponents();
+    TestBed.overrideProvider(PUZZLE_DAY_DATA, { useValue: puzzleDayDataMock });
+    TestBed.overrideProvider(PuzzleSolverService, { useValue: puzzleSolverServiceMock });
 
     fixture = TestBed.createComponent(PuzzleDayComponent);
     component = fixture.componentInstance;
