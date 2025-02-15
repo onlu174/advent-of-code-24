@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { PuzzleDayComponent } from './components/puzzle/puzzle-day.component';
+import { PuzzleDayComponent } from './components/puzzle-day/puzzle-day.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { Path } from './utils/path';
 
