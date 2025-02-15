@@ -49,6 +49,10 @@ export class Day2PuzzleSolverService implements PuzzleSolverService {
   }
 
   private mapPuzzleInput(puzzleInput: string): UnusualData {
-    return puzzleInput.split('\n').map((line) => line.split(' ').map((char) => Number(char)));
+    const lines = puzzleInput.split('\n');
+
+    if (lines.at(-1) === '') lines.pop(); //removes empty last line
+
+    return lines.map((line) => line.split(' ').map((char) => Number(char)));
   }
 }
