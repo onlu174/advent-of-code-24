@@ -13,7 +13,7 @@ export class Day2PuzzleSolverService implements PuzzleSolverService {
     const unusualData = this.mapPuzzleInput(puzzleInput);
 
     return unusualData.reduce(
-      (accumulator, currentValue) => (this.checkIfReportSafe(currentValue) ? accumulator + 1 : accumulator),
+      (accumulator, currentReport) => (this.checkIfReportSafe(currentReport) ? accumulator + 1 : accumulator),
       0,
     );
   }
