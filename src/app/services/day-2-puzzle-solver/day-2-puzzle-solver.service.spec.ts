@@ -16,7 +16,7 @@ describe('Day2PuzzleSolverService', () => {
 
   describe('solvePartOne', () => {
     it('should return correct result', () => {
-      const input = '7 6 4 2 1\n' + '1 2 7 8 9\n' + '9 7 6 2 1\n' + '1 3 2 4 5\n' + '8 6 4 4 1\n' + '1 3 6 7 9';
+      const input = '7 6 4 2 1\n' + '1 2 7 8 9\n' + '9 7 6 2 1\n' + '1 3 2 4 5\n' + '8 6 4 4 1\n' + '1 3 6 7 9\n';
 
       expect(service.solvePartOne(input)).toBe(2);
     });
@@ -24,7 +24,7 @@ describe('Day2PuzzleSolverService', () => {
 
   describe('solvePartTwo', () => {
     it('should return correct result', () => {
-      const input = '7 6 4 2 1\n' + '1 2 7 8 9\n' + '9 7 6 2 1\n' + '1 3 2 4 5\n' + '8 6 4 4 1\n' + '1 3 6 7 9';
+      const input = '7 6 4 2 1\n' + '1 2 7 8 9\n' + '9 7 6 2 1\n' + '1 3 2 4 5\n' + '8 6 4 4 1\n' + '1 3 6 7 9\n';
 
       expect(service.solvePartTwo(input)).toBe(4);
     });
