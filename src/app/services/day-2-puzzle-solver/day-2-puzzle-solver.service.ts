@@ -19,7 +19,13 @@ export class Day2PuzzleSolverService implements PuzzleSolverService {
   }
 
   solvePartTwo(puzzleInput: string): number {
-    throw new Error('Method not implemented.');
+    const unusualData = this.mapPuzzleInput(puzzleInput);
+
+    return unusualData.reduce(
+      (accumulator, currentReport) =>
+        this.checkIfReportSafeWithProblemDampener(currentReport) ? accumulator + 1 : accumulator,
+      0,
+    );
   }
 
   private mapPuzzleInput(puzzleInput: string): UnusualData {
@@ -54,5 +60,16 @@ export class Day2PuzzleSolverService implements PuzzleSolverService {
     }
 
     return true;
+  }
+
+  private checkIfReportSafeWithProblemDampener(report: Report): boolean {
+    for (let i = 0; i < report.length; i++) {
+      const dampenedReport = [...report];
+      dampenedReport.splice(i, 1);
+
+      if (this.checkIfReportSafe(dampenedReport)) return true;
+    }
+
+    return false;
   }
 }
