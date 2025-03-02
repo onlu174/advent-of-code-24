@@ -4,7 +4,7 @@ import { PuzzleSolverService } from '../../model/puzzle-solver.service';
 type InstructionInput = [number, number];
 
 const START_PATTERN = 'mul(' as const;
-const DIVIDER_PATTERN = ',' as const;
+const INPUT_DIVIDER_PATTERN = ',' as const;
 const END_PATTERN = ')' as const;
 const NUMBER_OF_DIGITS = 3 as const;
 
@@ -43,7 +43,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     for (let i = 0; i < puzzleInput.length; i++) {
       if (recognitionStage === PatternRecognitionStage.START) {
         if (this.checkForInstruction(puzzleInput, i)) {
-          i += 3;
+          i += START_PATTERN.length - 1;
           recognitionStage = PatternRecognitionStage.FIRST_INPUT;
         }
       } else if (recognitionStage === PatternRecognitionStage.FIRST_INPUT) {
@@ -56,7 +56,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
           recognitionStage = PatternRecognitionStage.DIVIDER;
         }
       } else if (recognitionStage === PatternRecognitionStage.DIVIDER) {
-        if (puzzleInput[i] === ',') {
+        if (puzzleInput[i] === INPUT_DIVIDER_PATTERN) {
           recognitionStage = PatternRecognitionStage.SECOND_INPUT;
         } else {
           recognitionStage = PatternRecognitionStage.START;
@@ -73,7 +73,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
           recognitionStage = PatternRecognitionStage.END;
         }
       } else if (recognitionStage === PatternRecognitionStage.END) {
-        if (puzzleInput[i] === ')') {
+        if (puzzleInput[i] === END_PATTERN) {
           multiplications.push([firstInput!, secondInput!]);
         }
 
@@ -82,6 +82,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
         secondInput = undefined;
       }
     }
+
     return multiplications;
   }
 
