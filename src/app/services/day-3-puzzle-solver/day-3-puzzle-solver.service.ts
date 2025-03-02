@@ -37,50 +37,89 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     const multiplications: Multiplication[] = [];
 
     let recognitionStage = PatternRecognitionStage.START;
-    let correctCharacters = 0;
-    let firstInput: number;
+    let firstInput: number | undefined = undefined;
+    let secondInput: number | undefined = undefined;
 
-    for (const char of puzzleInput) {
+    for (let i = 0; i < puzzleInput.length; i++) {
       if (recognitionStage === PatternRecognitionStage.START) {
-        if (char === START_PATTERN[correctCharacters]) {
-          correctCharacters++;
-
-          if (correctCharacters >= START_PATTERN.length) {
-            recognitionStage = PatternRecognitionStage.FIRST_INPUT;
-            correctCharacters = 0;
-          }
-        } else {
-          correctCharacters = 0;
+        if (this.checkForMultiplicationInstruction(puzzleInput, i)) {
+          i += 3;
+          recognitionStage = PatternRecognitionStage.FIRST_INPUT;
         }
       } else if (recognitionStage === PatternRecognitionStage.FIRST_INPUT) {
-        const digit = Number.parseInt(char);
+        firstInput = this.parseInput(puzzleInput, i);
 
-        if (Number.isNaN(digit)) {
-          if (char === DIVIDER_PATTERN[0]) {
-            recognitionStage = PatternRecognitionStage.DIVIDER;
-            correctCharacters = 1;
-
-            if (DIVIDER_PATTERN.length >= correctCharacters) {
-              recognitionStage = PatternRecognitionStage.SECOND_INPUT;
-              correctCharacters = 0;
-            }
-          } else {
-            recognitionStage = PatternRecognitionStage.START;
-            correctCharacters = 0;
-          }
+        if (firstInput === undefined) {
+          recognitionStage = PatternRecognitionStage.START;
         } else {
-          firstInput += digit * Math.pow(10, correctCharacters);
-          correctCharacters++;
-
-          if (correctCharacters >= NUMBER_OF_DIGITS) {
-            recognitionStage = PatternRecognitionStage.DIVIDER;
-            correctCharacters = 0;
-          }
+          i += firstInput.toString().length - 1;
+          recognitionStage = PatternRecognitionStage.DIVIDER;
         }
-      } else {
+      } else if (recognitionStage === PatternRecognitionStage.DIVIDER) {
+        if (puzzleInput[i] === ',') {
+          recognitionStage = PatternRecognitionStage.SECOND_INPUT;
+        } else {
+          recognitionStage = PatternRecognitionStage.START;
+          firstInput = undefined;
+        }
+      } else if (recognitionStage === PatternRecognitionStage.SECOND_INPUT) {
+        secondInput = this.parseInput(puzzleInput, i);
+
+        if (secondInput === undefined) {
+          recognitionStage = PatternRecognitionStage.START;
+          firstInput = undefined;
+        } else {
+          i += secondInput.toString().length - 1;
+          recognitionStage = PatternRecognitionStage.END;
+        }
+      } else if (recognitionStage === PatternRecognitionStage.END) {
+        if (puzzleInput[i] === ')') {
+          multiplications.push([firstInput!, secondInput!]);
+        }
+
+        recognitionStage = PatternRecognitionStage.START;
+        firstInput = undefined;
+        secondInput = undefined;
       }
     }
-
     return multiplications;
+  }
+
+  private checkForMultiplicationInstruction(puzzleInput: string, start: number): boolean {
+    const possibleInstruction = puzzleInput.substring(start, start + 4);
+
+    return possibleInstruction === 'mul(';
+  }
+
+  private parseInput(puzzleInput: string, start: number): number | undefined {
+    const number1 = Number.parseInt(puzzleInput[start]);
+    const number2 = Number.parseInt(puzzleInput[start + 1]);
+    const number3 = Number.parseInt(puzzleInput[start + 2]);
+
+    const isNum1NaN = Number.isNaN(number1);
+    const isNum2NaN = Number.isNaN(number2);
+    const isNum3NaN = Number.isNaN(number3);
+
+    let parsedNumber = undefined;
+
+    if (isNum1NaN) {
+      return parsedNumber;
+    }
+
+    parsedNumber = number1;
+
+    if (isNum2NaN) {
+      return parsedNumber;
+    }
+
+    parsedNumber = parsedNumber * 10 + number2;
+
+    if (isNum3NaN) {
+      return parsedNumber;
+    }
+
+    parsedNumber = parsedNumber * 10 + number3;
+
+    return parsedNumber;
   }
 }
