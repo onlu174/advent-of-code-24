@@ -6,7 +6,7 @@ type InstructionInput = [number, number];
 const START_PATTERN = 'mul(' as const;
 const INPUT_DIVIDER_PATTERN = ',' as const;
 const END_PATTERN = ')' as const;
-const NUMBER_OF_DIGITS = 3 as const;
+const NUMBER_OF_INPUT_DIGITS = 3 as const;
 
 enum PatternRecognitionStage {
   START,
@@ -47,7 +47,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
           recognitionStage = PatternRecognitionStage.FIRST_INPUT;
         }
       } else if (recognitionStage === PatternRecognitionStage.FIRST_INPUT) {
-        firstInput = this.parseInput(puzzleInput, i);
+        firstInput = this.getInstructionInput(puzzleInput, i);
 
         if (firstInput === undefined) {
           recognitionStage = PatternRecognitionStage.START;
@@ -63,7 +63,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
           firstInput = undefined;
         }
       } else if (recognitionStage === PatternRecognitionStage.SECOND_INPUT) {
-        secondInput = this.parseInput(puzzleInput, i);
+        secondInput = this.getInstructionInput(puzzleInput, i);
 
         if (secondInput === undefined) {
           recognitionStage = PatternRecognitionStage.START;
@@ -92,35 +92,14 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     return possibleInstruction === START_PATTERN;
   }
 
-  private parseInput(puzzleInput: string, start: number): number | undefined {
-    const number1 = Number.parseInt(puzzleInput[start]);
-    const number2 = Number.parseInt(puzzleInput[start + 1]);
-    const number3 = Number.parseInt(puzzleInput[start + 2]);
+  private getInstructionInput(puzzleInput: string, start: number): number | undefined {
+    let numbers = [...Array(NUMBER_OF_INPUT_DIGITS).keys()];
 
-    const isNum1NaN = Number.isNaN(number1);
-    const isNum2NaN = Number.isNaN(number2);
-    const isNum3NaN = Number.isNaN(number3);
+    numbers = numbers.map((_value, i) => Number.parseInt(puzzleInput[start + i]));
 
-    let parsedNumber = undefined;
+    const firstNanIndex = numbers.findIndex((number) => Number.isNaN(number));
+    numbers = numbers.slice(0, firstNanIndex);
 
-    if (isNum1NaN) {
-      return parsedNumber;
-    }
-
-    parsedNumber = number1;
-
-    if (isNum2NaN) {
-      return parsedNumber;
-    }
-
-    parsedNumber = parsedNumber * 10 + number2;
-
-    if (isNum3NaN) {
-      return parsedNumber;
-    }
-
-    parsedNumber = parsedNumber * 10 + number3;
-
-    return parsedNumber;
+    return numbers.reduce((accumulator, currentNumber) => accumulator * 10 + currentNumber);
   }
 }
