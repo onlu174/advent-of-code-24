@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PuzzleSolverService } from '../../model/puzzle-solver.service';
 
-type Multiplication = [number, number];
+type InstructionInput = [number, number];
 
 const START_PATTERN = 'mul(' as const;
 const DIVIDER_PATTERN = ',' as const;
@@ -21,10 +21,10 @@ enum PatternRecognitionStage {
 })
 export class Day3PuzzleSolverService implements PuzzleSolverService {
   solvePartOne(puzzleInput: string): number {
-    const multiplications: Multiplication[] = this.findMultiplicationInstructions(puzzleInput);
+    const instructions: InstructionInput[] = this.findInstructions(puzzleInput);
 
-    return multiplications.reduce(
-      (accumulator, multiplication) => accumulator + multiplication[0] * multiplication[1],
+    return instructions.reduce(
+      (accumulator, instructionInput) => accumulator + instructionInput[0] * instructionInput[1],
       0,
     );
   }
@@ -33,8 +33,8 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     throw new Error('Method not implemented.');
   }
 
-  private findMultiplicationInstructions(puzzleInput: string): Multiplication[] {
-    const multiplications: Multiplication[] = [];
+  private findInstructions(puzzleInput: string): InstructionInput[] {
+    const multiplications: InstructionInput[] = [];
 
     let recognitionStage = PatternRecognitionStage.START;
     let firstInput: number | undefined = undefined;
@@ -42,7 +42,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
 
     for (let i = 0; i < puzzleInput.length; i++) {
       if (recognitionStage === PatternRecognitionStage.START) {
-        if (this.checkForMultiplicationInstruction(puzzleInput, i)) {
+        if (this.checkForInstruction(puzzleInput, i)) {
           i += 3;
           recognitionStage = PatternRecognitionStage.FIRST_INPUT;
         }
@@ -85,7 +85,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     return multiplications;
   }
 
-  private checkForMultiplicationInstruction(puzzleInput: string, start: number): boolean {
+  private checkForInstruction(puzzleInput: string, start: number): boolean {
     const possibleInstruction = puzzleInput.substring(start, start + 4);
 
     return possibleInstruction === 'mul(';
