@@ -43,6 +43,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     for (let i = 0; i < puzzleInput.length; i++) {
       if (recognitionStage === PatternRecognitionStage.START) {
         if (this.checkForInstruction(puzzleInput, i)) {
+          // next stage
           i += START_PATTERN.length - 1;
           recognitionStage = PatternRecognitionStage.FIRST_INPUT;
         }
@@ -50,15 +51,19 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
         firstInput = this.getInstructionInput(puzzleInput, i);
 
         if (firstInput === undefined) {
+          // reset
           recognitionStage = PatternRecognitionStage.START;
         } else {
+          // next stage
           i += firstInput.toString().length - 1;
           recognitionStage = PatternRecognitionStage.DIVIDER;
         }
       } else if (recognitionStage === PatternRecognitionStage.DIVIDER) {
         if (puzzleInput[i] === INPUT_DIVIDER_PATTERN) {
+          // next stage
           recognitionStage = PatternRecognitionStage.SECOND_INPUT;
         } else {
+          // reset
           recognitionStage = PatternRecognitionStage.START;
           firstInput = undefined;
         }
@@ -66,9 +71,11 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
         secondInput = this.getInstructionInput(puzzleInput, i);
 
         if (secondInput === undefined) {
+          // reset
           recognitionStage = PatternRecognitionStage.START;
           firstInput = undefined;
         } else {
+          // next stage
           i += secondInput.toString().length - 1;
           recognitionStage = PatternRecognitionStage.END;
         }
@@ -76,7 +83,7 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
         if (puzzleInput[i] === END_PATTERN) {
           multiplications.push([firstInput!, secondInput!]);
         }
-
+        // reset
         recognitionStage = PatternRecognitionStage.START;
         firstInput = undefined;
         secondInput = undefined;
