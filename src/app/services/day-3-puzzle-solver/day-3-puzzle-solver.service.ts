@@ -86,9 +86,9 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
   }
 
   private checkForInstruction(puzzleInput: string, start: number): boolean {
-    const possibleInstruction = puzzleInput.substring(start, start + 4);
+    const possibleInstruction = puzzleInput.substring(start, start + START_PATTERN.length);
 
-    return possibleInstruction === 'mul(';
+    return possibleInstruction === START_PATTERN;
   }
 
   private parseInput(puzzleInput: string, start: number): number | undefined {
