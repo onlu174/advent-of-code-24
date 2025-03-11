@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PuzzleSolverService } from '../../model/puzzle-solver.service';
 
-type InstructionInput = [number, number];
+type MultiplicationInput = [number, number];
 
 const START_PATTERN = 'mul(' as const;
 const INPUT_DIVIDER_PATTERN = ',' as const;
@@ -21,10 +21,10 @@ enum PatternRecognitionStage {
 })
 export class Day3PuzzleSolverService implements PuzzleSolverService {
   solvePartOne(puzzleInput: string): number {
-    const instructions: InstructionInput[] = this.findInstructions(puzzleInput);
+    const multiplications: MultiplicationInput[] = this.findMultiplications(puzzleInput);
 
-    return instructions.reduce(
-      (accumulator, instructionInput) => accumulator + instructionInput[0] * instructionInput[1],
+    return multiplications.reduce(
+      (accumulator, multiplicationInput) => accumulator + multiplicationInput[0] * multiplicationInput[1],
       0,
     );
   }
@@ -33,8 +33,8 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     throw new Error('Method not implemented.');
   }
 
-  private findInstructions(puzzleInput: string): InstructionInput[] {
-    const multiplications: InstructionInput[] = [];
+  private findMultiplications(puzzleInput: string): MultiplicationInput[] {
+    const multiplications: MultiplicationInput[] = [];
 
     let recognitionStage = PatternRecognitionStage.START;
     let firstInput: number | undefined = undefined;
