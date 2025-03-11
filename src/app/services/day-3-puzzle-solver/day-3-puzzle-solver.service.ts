@@ -6,6 +6,7 @@ type MultiplicationInput = [number, number];
 const START_PATTERN = 'mul(' as const;
 const INPUT_DIVIDER_PATTERN = ',' as const;
 const END_PATTERN = ')' as const;
+const PARENTHESES_START = '(' as const;
 const NUMBER_OF_INPUT_DIGITS = 3 as const;
 
 enum PatternRecognitionStage {
@@ -15,6 +16,11 @@ enum PatternRecognitionStage {
   SECOND_INPUT,
   END,
 }
+
+enum Instruction {
+  MULTIPLICATION = 'mul',
+}
+const INSTRUCTIONS = Object.values(Instruction);
 
 @Injectable({
   providedIn: 'root',
@@ -41,8 +47,9 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     let secondInput: number | undefined = undefined;
 
     for (let i = 0; i < puzzleInput.length; i++) {
+
       if (recognitionStage === PatternRecognitionStage.START) {
-        if (this.checkForInstruction(puzzleInput, i)) {
+        if (this.checkForInstruction(puzzleInput, i) !== undefined) {
           // next stage
           i += START_PATTERN.length - 1;
           recognitionStage = PatternRecognitionStage.FIRST_INPUT;
@@ -93,10 +100,14 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     return multiplications;
   }
 
-  private checkForInstruction(puzzleInput: string, start: number): boolean {
-    const possibleInstruction = puzzleInput.substring(start, start + START_PATTERN.length);
+  private checkForInstruction(input: string, start: number): Instruction | undefined {
+    for (const instruction of INSTRUCTIONS) {
+      if (input.startsWith(instruction + PARENTHESES_START, start)) {
+        return instruction;
+      }
+    }
 
-    return possibleInstruction === START_PATTERN;
+    return undefined;
   }
 
   private getInstructionInput(puzzleInput: string, start: number): number | undefined {
