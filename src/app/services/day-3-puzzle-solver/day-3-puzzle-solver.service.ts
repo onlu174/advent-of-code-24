@@ -105,7 +105,10 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     numbers = numbers.map((_value, i) => Number.parseInt(puzzleInput[start + i]));
 
     const firstNanIndex = numbers.findIndex((number) => Number.isNaN(number));
-    numbers = numbers.slice(0, firstNanIndex);
+
+    if (firstNanIndex !== -1) {
+      numbers = numbers.slice(0, firstNanIndex);
+    }
 
     return numbers.reduce((accumulator, currentNumber) => accumulator * 10 + currentNumber);
   }
