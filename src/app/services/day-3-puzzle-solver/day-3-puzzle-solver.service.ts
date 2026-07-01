@@ -47,6 +47,12 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     let secondInput: number | undefined = undefined;
 
     for (let i = 0; i < puzzleInput.length; i++) {
+      const instruction = this.checkForInstruction(puzzleInput, i);
+
+      if (instruction !== undefined) {
+        i += instruction.length;
+        const inputs = this.getInstructionInputs(puzzleInput, i);
+      }
 
       if (recognitionStage === PatternRecognitionStage.START) {
         if (this.checkForInstruction(puzzleInput, i) !== undefined) {
@@ -122,5 +128,9 @@ export class Day3PuzzleSolverService implements PuzzleSolverService {
     }
 
     return numbers.reduce((accumulator, currentNumber) => accumulator * 10 + currentNumber);
+  }
+
+  private getInstructionInputs(input: string, start: number): number[] {
+    return [];
   }
 }
